@@ -26,5 +26,3 @@ refac . "oldComponent" "newComponent" --dry-run
 
 [Get Started](/installation){: .btn .btn-primary }
 [View Documentation](/documentation){: .btn }
-
-![Demo Animation](/images/refac-demo.gif)
