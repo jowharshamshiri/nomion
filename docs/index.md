@@ -24,5 +24,5 @@ tagline: Robust recursive string replacement for files and directories
 refac . "oldComponent" "newComponent" --dry-run
 ```
 
-[Get Started](/installation){: .btn .btn-primary }
-[View Documentation](/documentation){: .btn }
+[Get Started]({{ "installation" | relative_url }}){: .btn .btn-primary }
+[View Documentation]({{ "documentation" | relative_url }}){: .btn }

@@ -1,6 +1,10 @@
 title: Refac Tool
 description: Robust cross-platform tool for recursive string replacement
 theme: jekyll-theme-cayman
+baseurl: "/refac"  # Your repository name
+url: "https://jowharshamshiri.github.io"  # Your GitHub Pages URL
+permalink: pretty  # Add this for clean URLs
+
 plugins:
   - jekyll-relative-links
   - jekyll-seo-tag
