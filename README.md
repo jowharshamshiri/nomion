@@ -5,12 +5,14 @@ A robust, cross-platform command-line tool for recursive string replacement in f
 ## Features
 
 ### Core Functionality
+
 - **Recursive processing**: Traverses directory trees with configurable depth limits
 - **Dual operation modes**: Replaces strings in both file/directory names and file contents
 - **Case-sensitive matching**: Ensures precise control over replacements
 - **Cross-platform compatibility**: Works on Windows, macOS, and Linux
 
 ### Safety Features
+
 - **Collision detection**: Prevents overwriting existing files/directories
 - **Dry-run mode**: Preview changes before applying them
 - **Binary file detection**: Automatically skips binary files for content replacement
@@ -18,12 +20,14 @@ A robust, cross-platform command-line tool for recursive string replacement in f
 - **Confirmation prompts**: Interactive confirmation unless forced
 
 ### Performance Features
+
 - **Parallel processing**: Multi-threaded content replacement for large datasets
 - **Streaming file processing**: Handles large files efficiently
 - **Progress tracking**: Visual progress bars with detailed information
 - **Smart filtering**: Include/exclude patterns with glob and regex support
 
 ### Advanced Options
+
 - **Multiple operation modes**: Files-only, directories-only, names-only, content-only
 - **Output formats**: Human-readable, JSON, and plain text
 - **Verbose logging**: Detailed operation information
@@ -33,9 +37,10 @@ A robust, cross-platform command-line tool for recursive string replacement in f
 ## Installation
 
 ### From Source
+
 ```bash
 # Clone the repository
-git clone https://github.com/your-repo/refac-tool
+git clone https://github.com/jowharshamshiri/refac
 cd refac-tool/refac_rs
 
 # Build and install
@@ -44,11 +49,13 @@ cargo install --path .
 ```
 
 ### Pre-built Binaries
-Download the latest binary for your platform from the [releases page](https://github.com/your-repo/refac-tool/releases).
+
+Download the latest binary for your platform from the [releases page](https://github.com/jowharshamshiri/refac/releases).
 
 ## Usage
 
 ### Basic Syntax
+
 ```bash
 refac <root_dir> <old_string> <new_string> [options]
 ```
@@ -56,6 +63,7 @@ refac <root_dir> <old_string> <new_string> [options]
 ### Examples
 
 #### Basic Replacement
+
 ```bash
 # Replace "oldname" with "newname" in current directory
 refac . "oldname" "newname"
@@ -65,12 +73,14 @@ refac /path/to/project "OldClass" "NewClass"
 ```
 
 #### Dry Run (Preview Changes)
+
 ```bash
 # See what would be changed without making modifications
 refac . "oldname" "newname" --dry-run
 ```
 
 #### Operation Modes
+
 ```bash
 # Only rename files and directories (skip content)
 refac . "oldname" "newname" --names-only
@@ -86,6 +96,7 @@ refac . "oldname" "newname" --dirs-only
 ```
 
 #### Advanced Features
+
 ```bash
 # Force operation without confirmation
 refac . "oldname" "newname" --force
@@ -104,6 +115,7 @@ refac . "oldname" "newname" --threads 8
 ```
 
 #### Pattern Filtering
+
 ```bash
 # Include only specific file types
 refac . "oldname" "newname" --include "*.rs" --include "*.toml"
@@ -116,6 +128,7 @@ refac . "oldname" "newname" --include ".*"
 ```
 
 #### Output Formats
+
 ```bash
 # JSON output for scripting
 refac . "oldname" "newname" --format json
@@ -154,22 +167,27 @@ refac . "oldname" "newname" --format human
 ## Safety Considerations
 
 ### What Gets Modified
+
 - **File contents**: Text files only (binary files are automatically skipped)
 - **File names**: Any file containing the target string
 - **Directory names**: Any directory containing the target string
 
 ### What Doesn't Get Modified
+
 - **Binary files**: Automatically detected and skipped for content replacement
 - **The tool itself**: Self-modification is prevented
 - **Symlink targets**: Unless `--follow-symlinks` is specified
 
 ### Collision Prevention
+
 The tool checks for potential naming conflicts before making changes:
+
 - Files/directories that would overwrite existing items
 - Multiple sources trying to rename to the same target
 - Case-only differences on case-insensitive filesystems
 
 ### Best Practices
+
 1. **Always use dry-run first**: `--dry-run` to preview changes
 2. **Use backups for important files**: `--backup` option
 3. **Test on a copy**: Work on a backup of important directories
@@ -189,12 +207,15 @@ The tool provides comprehensive error handling and reporting:
 ## Performance
 
 ### Benchmarks
+
 On typical hardware (modern SSD, multi-core CPU):
+
 - **Small projects** (< 1000 files): < 1 second
 - **Medium projects** (1000-10000 files): 1-10 seconds
 - **Large projects** (> 10000 files): Scales linearly with thread count
 
 ### Optimization Tips
+
 - Use `--threads` to increase parallelism for large datasets
 - Use `--files-only` or `--dirs-only` when appropriate
 - Use include/exclude patterns to limit processing scope
@@ -203,6 +224,7 @@ On typical hardware (modern SSD, multi-core CPU):
 ## Output Examples
 
 ### Human-Readable Output
+
 ```
 === REFAC TOOL ===
 Root directory: /path/to/project
@@ -230,6 +252,7 @@ Total changes applied: 26
 ```
 
 ### JSON Output
+
 ```json
 {
   "summary": {
@@ -259,27 +282,33 @@ Total changes applied: 26
 ### Common Issues
 
 **"Permission denied" errors**
+
 - Run with appropriate permissions
 - Check file/directory ownership
 - Ensure files are not locked by other processes
 
 **"No changes found" when changes expected**
+
 - Verify the search string is correct (case-sensitive)
 - Check include/exclude patterns
 - Use `--verbose` to see what's being processed
 
 **"Naming collision detected"**
+
 - Review the collision report
 - Rename conflicting files manually
 - Use different target names
 
 **Binary files not being processed**
+
 - This is by design for safety
 - Use `--verbose` to see which files are skipped
 - Manually verify file types if needed
 
 ### Debug Mode
+
 For detailed debugging information:
+
 ```bash
 refac . "old" "new" --verbose --dry-run
 ```
@@ -289,9 +318,10 @@ refac . "old" "new" --verbose --dry-run
 Contributions are welcome! Please read the contributing guidelines and submit pull requests for any improvements.
 
 ### Development Setup
+
 ```bash
 # Clone the repository
-git clone https://github.com/your-repo/refac-tool
+git clone https://github.com/jowharshamshiri/refac
 cd refac-tool/refac_rs
 
 # Run tests
@@ -311,6 +341,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Changelog
 
 ### Version 0.1.0
+
 - Initial release
 - Basic rename functionality
 - Safety features and collision detection

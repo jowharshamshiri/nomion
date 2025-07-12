@@ -1,217 +1,345 @@
 ---
 layout: default
-title: Getting Started with Refac
+title: Getting Started
 ---
 
 # Getting Started with Refac
 
-This guide will help you get up and running with Refac in just a few minutes. By the end of this tutorial, you'll understand the core concepts and be ready to start refactoring your codebase.
+This guide will help you get up and running with Refac quickly. Learn the core concepts and basic usage patterns.
 
-## Prerequisites
+## What is Refac?
 
-Before installing Refac, ensure you have:
-
-- Node.js 14.0 or higher
-- npm or yarn package manager
-- Git (recommended for version control integration)
+Refac is a command-line tool that performs recursive string replacement in both file/directory names and file contents. It's designed for large-scale refactoring operations with safety and performance in mind.
 
 ## Installation
 
-Install Refac globally using npm:
+### From Source (Recommended)
 
 ```bash
-npm install -g refac
+# Clone and build
+git clone https://github.com/jowharshamshiri/refac.git
+cd refac
+cargo build --release
+cargo install --path .
 ```
 
-Or using yarn:
-
-```bash
-yarn global add refac
-```
-
-Verify the installation:
+### Verify Installation
 
 ```bash
 refac --version
+refac --help
 ```
 
-## Core Concepts
+## Basic Concepts
 
-### Refactoring Operations
+### Dual Operation Mode
 
-Refac supports various refactoring operations:
+Refac performs two types of replacements:
 
-- **Rename**: Change names of variables, functions, classes, and more
-- **Extract**: Pull out code into functions, methods, or modules
-- **Inline**: Replace function calls with their implementation
-- **Move**: Relocate code between files or modules
-- **Transform**: Apply custom transformations using patterns
+1. **Name Replacement**: Renames files and directories containing the target string
+2. **Content Replacement**: Replaces strings inside text files (skips binary files automatically)
 
-### Pattern Matching
-
-Refac uses powerful pattern matching to identify code structures:
-
-```javascript
-// Match any function named 'calculate*'
-refac rename-function 'calculate*' 'compute$1' --path ./src
-
-// Match specific patterns
-refac extract-method --pattern 'if (user.role === "admin")' --path ./auth
-```
-
-### Safe Mode
-
-Always preview changes before applying them:
+### Command Structure
 
 ```bash
-# Preview mode shows what will change
-refac rename-variable oldVar newVar --preview
-
-# Dry run creates a diff without modifying files
-refac extract-function --dry-run --output changes.diff
+refac <DIRECTORY> <OLD_STRING> <NEW_STRING> [OPTIONS]
 ```
 
 ## Your First Refactoring
 
-Let's walk through a simple example. Suppose you have this JavaScript code:
+Let's start with a simple example:
 
-```javascript
-// utils.js
-function calculateTotal(items) {
-  let total = 0;
-  for (let item of items) {
-    total += item.price * item.quantity;
-  }
-  return total;
-}
-```
-
-### Step 1: Rename the Function
+### Step 1: Create a Test Project
 
 ```bash
-refac rename-function calculateTotal computeTotal --path utils.js
+mkdir test-project
+cd test-project
+echo "function oldFunction() { return 'hello'; }" > oldFile.js
+echo "oldFunction();" > main.js
 ```
 
-### Step 2: Extract Tax Calculation
+### Step 2: Preview Changes
 
-If you want to extract tax calculation logic:
+Always use `--dry-run` first to see what would change:
 
 ```bash
-refac extract-method \
-  --pattern 'total += item.price * item.quantity' \
-  --name calculateItemSubtotal \
-  --path utils.js
+refac . "oldFunction" "newFunction" --dry-run
 ```
 
-### Step 3: Review Changes
+This shows you:
+- Which files will be renamed
+- Which files will have content changes
+- A summary of total changes
 
-Always review the changes:
+### Step 3: Apply Changes
+
+If the preview looks correct:
 
 ```bash
-git diff utils.js
+refac . "oldFunction" "newFunction"
 ```
 
-## Configuration
+Refac will:
+1. Ask for confirmation (unless you use `--force`)
+2. Apply the changes
+3. Show a summary
 
-Create a `.refacrc` file in your project root for project-specific settings:
+### Step 4: Verify Results
 
-```json
-{
-  "language": "javascript",
-  "exclude": ["node_modules", "dist", "build"],
-  "rules": {
-    "naming": {
-      "functions": "camelCase",
-      "classes": "PascalCase",
-      "constants": "UPPER_SNAKE_CASE"
-    }
-  },
-  "safeMode": true
-}
+```bash
+ls -la  # Check renamed files
+cat *.js  # Check content changes
+```
+
+## Operation Modes
+
+Control what Refac processes with mode flags:
+
+### Names Only
+Only rename files/directories, don't change content:
+
+```bash
+refac . "oldProject" "newProject" --names-only
+```
+
+### Content Only
+Only change file contents, don't rename files:
+
+```bash
+refac . "api.old.com" "api.new.com" --content-only
+```
+
+### Files Only
+Process files but not directories:
+
+```bash
+refac . "oldname" "newname" --files-only
+```
+
+### Directories Only
+Process directories but not files:
+
+```bash
+refac . "oldname" "newname" --dirs-only
+```
+
+## Filtering Files
+
+### Include Specific File Types
+
+```bash
+# Only process Rust files
+refac ./src "oldStruct" "newStruct" --include "*.rs"
+
+# Multiple file types
+refac . "oldname" "newname" --include "*.js" --include "*.ts"
+```
+
+### Exclude Unwanted Files
+
+```bash
+# Skip build directories
+refac . "oldname" "newname" --exclude "target/*" --exclude "node_modules/*"
+
+# Skip log files
+refac . "oldname" "newname" --exclude "*.log"
+```
+
+## Safety Features
+
+### Always Preview First
+
+```bash
+# See exactly what will change
+refac . "oldname" "newname" --dry-run --verbose
+```
+
+### Create Backups
+
+```bash
+# Create .bak files before changes
+refac . "oldname" "newname" --backup
+```
+
+### Use Version Control
+
+```bash
+# Commit before refactoring
+git add .
+git commit -m "Before refactoring"
+
+# Apply changes
+refac . "oldname" "newname"
+
+# Review changes
+git diff HEAD~1
+```
+
+## Common Scenarios
+
+### Rename a Class
+
+```bash
+# Preview first
+refac ./src "UserController" "AccountController" --dry-run
+
+# Apply to specific file types
+refac ./src "UserController" "AccountController" \
+  --include "*.rs" \
+  --include "*.toml"
+```
+
+### Update Configuration
+
+```bash
+# Change URLs in config files only
+refac ./config "old.server.com" "new.server.com" \
+  --content-only \
+  --include "*.env" \
+  --include "*.yaml"
+```
+
+### Project Rename
+
+```bash
+# Rename entire project
+refac . "OldProjectName" "NewProjectName" \
+  --exclude ".git/*" \
+  --exclude "target/*"
+```
+
+## Performance Tips
+
+### Use Multiple Threads
+
+```bash
+# Faster processing for large projects
+refac . "oldname" "newname" --threads 8
+```
+
+### Limit Search Depth
+
+```bash
+# Avoid deep directory traversal
+refac . "oldname" "newname" --max-depth 3
+```
+
+### Target Specific Areas
+
+```bash
+# Process only source directories
+refac ./src "oldname" "newname"
+refac ./tests "oldname" "newname"
+```
+
+## Advanced Features
+
+### Regular Expressions
+
+```bash
+# Use regex patterns
+refac . "version_\d+" "version_2" --regex
+
+# Case-insensitive matching
+refac . "oldname" "newname" --ignore-case
+```
+
+### Output Formats
+
+```bash
+# JSON output for scripting
+refac . "oldname" "newname" --format json
+
+# Plain text output
+refac . "oldname" "newname" --format plain
 ```
 
 ## Best Practices
 
 ### 1. Start Small
-Begin with simple refactorings on a small codebase to get familiar with the tool.
-
-### 2. Use Version Control
-Always commit your code before running refactoring operations:
+Begin with a small directory or specific file types:
 
 ```bash
-git add .
-git commit -m "Before refactoring"
-refac rename-function oldFunc newFunc --path ./src
+refac ./src/utils "oldUtil" "newUtil" --include "*.rs"
 ```
 
-### 3. Test After Refactoring
-Run your test suite after each refactoring operation:
+### 2. Always Test
+- Use `--dry-run` before applying changes
+- Run your test suite after refactoring
+- Commit changes incrementally
+
+### 3. Be Specific
+Use include/exclude patterns to limit scope:
 
 ```bash
-refac extract-method --pattern 'complex logic' --path ./src
-npm test
+refac ./project "oldname" "newname" \
+  --include "*.rs" \
+  --exclude "*test*" \
+  --exclude "target/*"
 ```
 
-### 4. Batch Operations
-Group related refactorings together:
+### 4. Handle Large Projects
+- Use threading: `--threads 8`
+- Limit depth: `--max-depth 3`
+- Process in batches by directory
+
+## Getting Help
+
+### Command Help
 
 ```bash
-# Create a refactoring script
-cat > refactor-auth.sh << EOF
-#!/bin/bash
-refac rename-function authenticate authenticateUser --path ./auth
-refac rename-variable token authToken --path ./auth
-refac extract-method --pattern 'validate token' --name validateAuthToken
-EOF
+# General help
+refac --help
 
-chmod +x refactor-auth.sh
-./refactor-auth.sh
+# See all options
+refac --help | less
 ```
 
-## Common Use Cases
-
-### Modernizing Legacy Code
+### Verbose Output
 
 ```bash
-# Convert var to const/let
-refac transform-var-declarations --path ./legacy
-
-# Update function syntax
-refac modernize-functions --arrow-functions --path ./src
+# See detailed operation info
+refac . "oldname" "newname" --dry-run --verbose
 ```
 
-### Consistent Naming
+### Common Issues
 
-```bash
-# Enforce naming conventions
-refac enforce-naming --config .refacrc --path ./src
+**No changes found:**
+- Check if the string exists: `grep -r "oldname" .`
+- Use `--verbose` to see what's being processed
+- Verify include/exclude patterns
 
-# Fix inconsistent casing
-refac fix-casing --style camelCase --type functions --path ./
-```
-
-### Code Organization
-
-```bash
-# Move utilities to separate module
-refac move-functions --pattern 'util*' --to ./utils/index.js
-
-# Extract constants
-refac extract-constants --to ./constants.js --path ./src
-```
+**Permission errors:**
+- Check file permissions: `ls -la`
+- Use `--verbose` to see which files are skipped
 
 ## Next Steps
 
 Now that you understand the basics:
 
-1. Explore the [Usage Guide]({{ '/usage/' | relative_url }}) for advanced features
-2. Check out [Examples]({{ '/examples/' | relative_url }}) for real-world scenarios
-3. Read the [API Reference]({{ '/api-reference/' | relative_url }}) for all available commands
+1. [Usage Guide]({{ '/usage/' | relative_url }}) - Comprehensive usage examples
+2. [Command Reference]({{ '/api-reference/' | relative_url }}) - Complete option documentation  
+3. [Examples]({{ '/examples/' | relative_url }}) - Real-world scenarios
 
-## Getting Help
+## Quick Reference
 
-- Run `refac help` for command documentation
-- Use `refac <command> --help` for specific command help
-- Visit our [GitHub Issues](https://github.com/jowharshamshiri/refac/issues) for support
+```bash
+# Basic usage
+refac . "old" "new"
 
-Happy refactoring!
+# Preview changes
+refac . "old" "new" --dry-run
+
+# Specific file types
+refac . "old" "new" --include "*.rs"
+
+# Names or content only
+refac . "old" "new" --names-only
+refac . "old" "new" --content-only
+
+# With backups
+refac . "old" "new" --backup
+
+# Force without confirmation
+refac . "old" "new" --force
+```

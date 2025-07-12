@@ -3,463 +3,510 @@ layout: default
 title: Examples
 ---
 
-# Refac Examples
+# Real-World Examples
 
-Learn how to use Refac through practical, real-world examples. Each example includes the problem, solution, and step-by-step implementation.
+Learn how to use Refac through practical examples for common refactoring scenarios.
 
-## Table of Contents
+## Basic String Replacement
 
-1. [Modernizing Legacy JavaScript](#modernizing-legacy-javascript)
-2. [Refactoring React Components](#refactoring-react-components)
-3. [Python Code Cleanup](#python-code-cleanup)
-4. [Large-Scale Renaming](#large-scale-renaming)
-5. [Extract and Modularize](#extract-and-modularize)
-6. [API Migration](#api-migration)
+### Rename Variables Throughout Project
 
-## Modernizing Legacy JavaScript
+**Scenario**: You need to rename a variable across your entire codebase.
 
-### Problem
-You have legacy JavaScript code using outdated patterns:
-
-```javascript
-// legacy.js
-var utils = {
-  getUserData: function(id, callback) {
-    var self = this;
-    $.ajax({
-      url: '/api/users/' + id,
-      success: function(data) {
-        callback(null, data);
-      },
-      error: function(err) {
-        callback(err);
-      }
-    });
-  }
-};
-```
-
-### Solution
-
-Step 1: Convert var to const/let
 ```bash
-refac transform --pattern 'var' --replacement 'const' --path ./legacy.js
+# Preview the changes first
+refac ./src "oldVariableName" "newVariableName" --dry-run
+
+# Apply the changes
+refac ./src "oldVariableName" "newVariableName"
 ```
 
-Step 2: Convert to arrow functions
+### Update API Endpoints
+
+**Scenario**: Your API URL changed and you need to update all references.
+
 ```bash
-refac modernize-functions --arrow --path ./legacy.js
+# Update only file contents, don't rename files
+refac . "api.old-service.com" "api.new-service.com" --content-only
+
+# Include only relevant file types
+refac . "api.old-service.com" "api.new-service.com" \
+  --content-only \
+  --include "*.js" \
+  --include "*.py" \
+  --include "*.json"
 ```
 
-Step 3: Replace jQuery with fetch
+## File and Directory Organization
+
+### Rename Project Files
+
+**Scenario**: You're renaming your project from "MyApp" to "AwesomeApp".
+
 ```bash
-refac transform \
-  --pattern '$.ajax({ url: $url, success: $success, error: $error })' \
-  --replacement 'fetch($url).then($success).catch($error)' \
-  --ast --path ./legacy.js
+# Rename both files and their contents
+refac . "MyApp" "AwesomeApp" --dry-run
+
+# Exclude certain directories
+refac . "MyApp" "AwesomeApp" \
+  --exclude "node_modules/*" \
+  --exclude ".git/*" \
+  --exclude "target/*"
 ```
 
-### Result
-```javascript
-// legacy.js (modernized)
-const utils = {
-  getUserData: async (id) => {
-    try {
-      const response = await fetch(`/api/users/${id}`);
-      return await response.json();
-    } catch (err) {
-      throw err;
-    }
-  }
-};
-```
+### Reorganize File Naming Convention
 
-## Refactoring React Components
+**Scenario**: Change file naming from `camelCase` to `snake_case`.
 
-### Problem
-You have React class components that should be converted to functional components:
-
-```javascript
-// UserProfile.jsx
-import React, { Component } from 'react';
-
-class UserProfile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      user: null
-    };
-  }
-
-  componentDidMount() {
-    this.fetchUser();
-  }
-
-  fetchUser = () => {
-    fetch(`/api/users/${this.props.userId}`)
-      .then(res => res.json())
-      .then(user => this.setState({ user, loading: false }));
-  }
-
-  render() {
-    if (this.state.loading) return <div>Loading...</div>;
-    return <div>{this.state.user.name}</div>;
-  }
-}
-```
-
-### Solution
-
-Step 1: Extract the data fetching logic
 ```bash
-refac extract-method \
-  --pattern 'fetch(`/api/users/${this.props.userId}`)' \
-  --name 'useUserData' \
-  --path ./UserProfile.jsx
+# Rename files only, don't change content
+refac ./src "camelCase" "snake_case" --names-only
+
+# Or use regex for more complex patterns
+refac ./src "([a-z])([A-Z])" "\$1_\$2" --names-only --regex
 ```
 
-Step 2: Convert to functional component
+## Language-Specific Refactoring
+
+### Rust Project Refactoring
+
+**Scenario**: Rename a struct and update all references.
+
 ```bash
-refac transform-react-component \
-  --from class \
-  --to functional \
-  --hooks \
-  --path ./UserProfile.jsx
+# Target only Rust files
+refac ./src "OldStruct" "NewStruct" \
+  --include "*.rs" \
+  --include "*.toml"
+
+# With backup for safety
+refac ./src "OldStruct" "NewStruct" \
+  --include "*.rs" \
+  --backup
 ```
 
-### Result
-```javascript
-// UserProfile.jsx (refactored)
-import React, { useState, useEffect } from 'react';
+### JavaScript/TypeScript Project
 
-const useUserData = (userId) => {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+**Scenario**: Update function names across JS/TS files.
 
-  useEffect(() => {
-    fetch(`/api/users/${userId}`)
-      .then(res => res.json())
-      .then(user => {
-        setUser(user);
-        setLoading(false);
-      });
-  }, [userId]);
-
-  return { loading, user };
-};
-
-const UserProfile = ({ userId }) => {
-  const { loading, user } = useUserData(userId);
-
-  if (loading) return <div>Loading...</div>;
-  return <div>{user.name}</div>;
-};
-
-export default UserProfile;
-```
-
-## Python Code Cleanup
-
-### Problem
-You have Python code with inconsistent naming and outdated patterns:
-
-```python
-# data_processor.py
-def ProcessData(input_list):
-    OutputList = []
-    for i in range(len(input_list)):
-        if input_list[i] > 0:
-            OutputList.append(input_list[i] * 2)
-    return OutputList
-
-def calculate_average(numbersList):
-    total = 0
-    for num in numbersList:
-        total = total + num
-    return total / len(numbersList)
-```
-
-### Solution
-
-Step 1: Fix naming conventions
 ```bash
-refac enforce-naming --style snake_case --type functions --fix --path ./data_processor.py
-refac enforce-naming --style snake_case --type variables --fix --path ./data_processor.py
+# Target JS and TS files
+refac ./src "oldFunction" "newFunction" \
+  --include "*.js" \
+  --include "*.ts" \
+  --include "*.jsx" \
+  --include "*.tsx"
+
+# Exclude test files
+refac ./src "oldFunction" "newFunction" \
+  --include "*.js" \
+  --include "*.ts" \
+  --exclude "*test*" \
+  --exclude "*spec*"
 ```
 
-Step 2: Modernize loops
+### Python Project
+
+**Scenario**: Rename a class and update imports.
+
 ```bash
-refac transform \
-  --pattern 'for i in range(len($list))' \
-  --replacement 'for i, item in enumerate($list)' \
-  --language python \
-  --path ./data_processor.py
+# Python files only
+refac ./project "OldClass" "NewClass" \
+  --include "*.py" \
+  --exclude "__pycache__/*"
+
+# Include requirements files too
+refac ./project "old-package" "new-package" \
+  --include "*.py" \
+  --include "requirements*.txt" \
+  --include "setup.py"
 ```
 
-Step 3: Use list comprehensions
+## Configuration and Deployment
+
+### Update Environment Variables
+
+**Scenario**: Change environment variable names in configuration files.
+
 ```bash
-refac transform \
-  --pattern 'for $item in $list: if $cond: $result.append($expr)' \
-  --replacement '$result = [$expr for $item in $list if $cond]' \
-  --ast --language python \
-  --path ./data_processor.py
+# Target configuration files
+refac ./config "OLD_ENV_VAR" "NEW_ENV_VAR" \
+  --include "*.env" \
+  --include "*.yml" \
+  --include "*.yaml" \
+  --include "*.json"
+
+# Content only (don't rename config files)
+refac ./config "staging.server.com" "production.server.com" \
+  --content-only \
+  --include "*.env" \
+  --include "*.config"
 ```
 
-### Result
-```python
-# data_processor.py (cleaned up)
-def process_data(input_list):
-    return [item * 2 for item in input_list if item > 0]
+### Docker and Deployment Scripts
 
-def calculate_average(numbers_list):
-    return sum(numbers_list) / len(numbers_list) if numbers_list else 0
-```
+**Scenario**: Update service names in deployment configurations.
 
-## Large-Scale Renaming
-
-### Problem
-Your codebase uses inconsistent naming for API endpoints:
-
-```javascript
-// Multiple files across the codebase
-getUserInfo()
-fetchUserData()
-loadUserDetails()
-getUserProfile()
-```
-
-### Solution
-
-Step 1: Find all variations
 ```bash
-refac find-pattern '(get|fetch|load)User(Info|Data|Details|Profile)' \
-  --language javascript \
-  --output user-functions.txt
+# Update container names
+refac ./deployment "old-service" "new-service" \
+  --include "*.yml" \
+  --include "*.yaml" \
+  --include "Dockerfile*" \
+  --include "*.sh"
+
+# Update image names
+refac ./k8s "myregistry/old-app" "myregistry/new-app" \
+  --include "*.yaml" \
+  --content-only
 ```
 
-Step 2: Create a mapping file
-```json
-// rename-mapping.json
-{
-  "getUserInfo": "fetchUserProfile",
-  "fetchUserData": "fetchUserProfile",
-  "loadUserDetails": "fetchUserProfile",
-  "getUserProfile": "fetchUserProfile"
-}
-```
+## Database and Schema Changes
 
-Step 3: Apply bulk rename
+### Update Table Names
+
+**Scenario**: Rename database tables in SQL files and application code.
+
 ```bash
-refac bulk-rename --mapping rename-mapping.json --path ./src
+# SQL files only
+refac ./sql "old_table" "new_table" \
+  --include "*.sql" \
+  --include "*.migration"
+
+# Application code
+refac ./src "old_table" "new_table" \
+  --include "*.py" \
+  --include "*.js" \
+  --include "*.rb"
 ```
 
-Step 4: Update imports
+### Update Column References
+
+**Scenario**: Rename a database column across your application.
+
 ```bash
-refac update-imports --changed-functions rename-mapping.json --path ./src
+# Preview changes across multiple file types
+refac ./project "old_column_name" "new_column_name" \
+  --dry-run \
+  --include "*.sql" \
+  --include "*.py" \
+  --include "*.js"
+
+# Apply with verbose output
+refac ./project "old_column_name" "new_column_name" \
+  --verbose \
+  --include "*.sql" \
+  --include "*.py" \
+  --include "*.js"
 ```
 
-## Extract and Modularize
+## Advanced Patterns
 
-### Problem
-You have a large file with mixed concerns:
+### Using Regular Expressions
 
-```javascript
-// app.js (1000+ lines)
-// Authentication logic
-function login(username, password) { /* ... */ }
-function logout() { /* ... */ }
-function checkAuth() { /* ... */ }
+**Scenario**: Update version strings with regex patterns.
 
-// User management
-function createUser(data) { /* ... */ }
-function updateUser(id, data) { /* ... */ }
-function deleteUser(id) { /* ... */ }
-
-// Data processing
-function processOrder(order) { /* ... */ }
-function calculateTotals(items) { /* ... */ }
-// ... many more functions
-```
-
-### Solution
-
-Step 1: Identify function groups
 ```bash
-refac analyze-functions --suggest-modules --path ./app.js
+# Match version patterns like "v1.2.3"
+refac ./docs "v1\\.\\d+\\.\\d+" "v2.0.0" \
+  --regex \
+  --include "*.md" \
+  --include "*.txt"
+
+# Case-insensitive function name updates
+refac ./src "oldfunction" "newFunction" \
+  --regex \
+  --ignore-case \
+  --include "*.js"
 ```
 
-Step 2: Extract authentication module
+### Batch Operations with Scripts
+
+**Scenario**: Multiple related replacements in sequence.
+
 ```bash
-refac extract-module \
-  --functions 'login,logout,checkAuth' \
-  --to './modules/auth.js' \
-  --path ./app.js
+#!/bin/bash
+# bulk-refactor.sh
+
+# Array of old:new pairs
+REPLACEMENTS=(
+  "OldClass1:NewClass1"
+  "OldClass2:NewClass2"
+  "old_function:new_function"
+  "OLD_CONSTANT:NEW_CONSTANT"
+)
+
+# Process each replacement
+for replacement in "${REPLACEMENTS[@]}"; do
+  IFS=':' read -r old new <<< "$replacement"
+  echo "Replacing '$old' with '$new'..."
+  
+  refac ./src "$old" "$new" \
+    --include "*.rs" \
+    --include "*.toml" \
+    --force
+    
+  if [ $? -ne 0 ]; then
+    echo "Error processing $old -> $new"
+    exit 1
+  fi
+done
+
+echo "All replacements completed successfully!"
 ```
 
-Step 3: Extract user management module
+### Conditional Replacements
+
+**Scenario**: Different replacements for different environments.
+
 ```bash
-refac extract-module \
-  --pattern '*User*' \
-  --to './modules/users.js' \
-  --path ./app.js
+#!/bin/bash
+# environment-update.sh
+
+ENVIRONMENT=${1:-staging}
+
+case $ENVIRONMENT in
+  "staging")
+    refac ./config "production.db.com" "staging.db.com" \
+      --content-only \
+      --include "*.env"
+    ;;
+  "production")
+    refac ./config "staging.db.com" "production.db.com" \
+      --content-only \
+      --include "*.env"
+    ;;
+  *)
+    echo "Usage: $0 [staging|production]"
+    exit 1
+    ;;
+esac
 ```
 
-Step 4: Extract data processing module
-```bash
-refac extract-module \
-  --pattern 'process*,calculate*' \
-  --to './modules/dataProcessing.js' \
-  --path ./app.js
-```
+## Safety and Testing
 
-### Result
-```javascript
-// app.js (refactored)
-import * as auth from './modules/auth.js';
-import * as users from './modules/users.js';
-import * as dataProcessing from './modules/dataProcessing.js';
+### Safe Refactoring Workflow
 
-// Clean, modular structure with proper separation of concerns
-```
+**Scenario**: A safe, step-by-step refactoring process.
 
-## API Migration
-
-### Problem
-You need to migrate from an old API to a new one across your entire codebase:
-
-```javascript
-// Old API usage scattered across files
-api.getItems(callback);
-api.saveItem(item, callback);
-api.removeItem(id, callback);
-```
-
-### Solution
-
-Step 1: Create transformation rules
-```javascript
-// api-migration.rules.js
-module.exports = {
-  rules: [
-    {
-      pattern: 'api.getItems($callback)',
-      replacement: 'await newApi.items.list()',
-      async: true
-    },
-    {
-      pattern: 'api.saveItem($item, $callback)',
-      replacement: 'await newApi.items.save($item)',
-      async: true
-    },
-    {
-      pattern: 'api.removeItem($id, $callback)',
-      replacement: 'await newApi.items.delete($id)',
-      async: true
-    }
-  ]
-};
-```
-
-Step 2: Apply migrations
-```bash
-refac apply-rules --rules ./api-migration.rules.js --path ./src
-
-# Add async/await where needed
-refac add-async --where-await-used --path ./src
-```
-
-Step 3: Update imports
-```bash
-refac transform \
-  --pattern "import api from './oldApi'" \
-  --replacement "import newApi from './newApi'" \
-  --path ./src
-```
-
-Step 4: Remove callback error handling
-```bash
-refac transform \
-  --pattern 'if (err) { $errorHandler }' \
-  --replacement 'try { $1 } catch (err) { $errorHandler }' \
-  --context async-function \
-  --path ./src
-```
-
-### Result
-```javascript
-// Migrated code
-import newApi from './newApi';
-
-async function loadData() {
-  try {
-    const items = await newApi.items.list();
-    return items;
-  } catch (err) {
-    console.error('Failed to load items:', err);
-  }
-}
-```
-
-## Best Practices for Complex Refactoring
-
-### 1. Plan Your Refactoring
-```bash
-# Analyze before refactoring
-refac analyze --metrics --path ./src > analysis.txt
-
-# Create a refactoring plan
-refac plan --suggest --based-on analysis.txt > refactoring-plan.md
-```
-
-### 2. Test Continuously
 ```bash
 #!/bin/bash
 # safe-refactor.sh
 
-# Run tests before
-npm test || exit 1
+OLD_NAME="$1"
+NEW_NAME="$2"
+PROJECT_DIR="$3"
+
+if [ $# -ne 3 ]; then
+  echo "Usage: $0 <old_name> <new_name> <project_dir>"
+  exit 1
+fi
+
+# Step 1: Backup
+echo "Creating backup..."
+cp -r "$PROJECT_DIR" "${PROJECT_DIR}.backup"
+
+# Step 2: Dry run
+echo "Previewing changes..."
+refac "$PROJECT_DIR" "$OLD_NAME" "$NEW_NAME" --dry-run --verbose
+
+read -p "Continue with these changes? (y/N): " confirm
+if [ "$confirm" != "y" ]; then
+  echo "Aborted"
+  exit 0
+fi
+
+# Step 3: Apply changes with backup
+echo "Applying changes..."
+refac "$PROJECT_DIR" "$OLD_NAME" "$NEW_NAME" --backup
+
+# Step 4: Run tests (if available)
+if [ -f "$PROJECT_DIR/Cargo.toml" ]; then
+  echo "Running Rust tests..."
+  cd "$PROJECT_DIR" && cargo test
+elif [ -f "$PROJECT_DIR/package.json" ]; then
+  echo "Running Node.js tests..."
+  cd "$PROJECT_DIR" && npm test
+elif [ -f "$PROJECT_DIR/setup.py" ]; then
+  echo "Running Python tests..."
+  cd "$PROJECT_DIR" && python -m pytest
+else
+  echo "No test framework detected. Please run tests manually."
+fi
+
+echo "Refactoring completed!"
+```
+
+### Testing Changes
+
+**Scenario**: Verify refactoring didn't break anything.
+
+```bash
+# Before refactoring
+git add .
+git commit -m "Before refactoring: rename oldname to newname"
 
 # Apply refactoring
-refac apply-rules --rules ./rules.js --path ./src
+refac . "oldname" "newname" --backup --verbose
 
-# Run tests after
-npm test || {
-  echo "Tests failed after refactoring"
-  git checkout .
+# Check what changed
+git diff --name-only
+git diff --stat
+
+# Run your tests
+cargo test  # Rust
+npm test    # Node.js
+pytest      # Python
+make test   # Make-based projects
+
+# If tests pass, commit
+git add .
+git commit -m "Refactor: rename oldname to newname"
+
+# If tests fail, you can restore
+git checkout .
+# Or restore from backup files (*.bak)
+```
+
+## Performance Optimization
+
+### Large Codebase Handling
+
+**Scenario**: Refactoring a very large project efficiently.
+
+```bash
+# Use multiple threads for better performance
+refac ./large-project "oldname" "newname" \
+  --threads 8 \
+  --progress always
+
+# Limit scope to reduce processing time
+refac ./large-project "oldname" "newname" \
+  --max-depth 3 \
+  --include "src/**" \
+  --exclude "node_modules/**" \
+  --exclude "target/**"
+
+# Process in batches for very large projects
+refac ./src "oldname" "newname" --threads 8
+refac ./tests "oldname" "newname" --threads 8
+refac ./docs "oldname" "newname" --threads 8
+```
+
+### Memory-Conscious Processing
+
+**Scenario**: Handle large files without running out of memory.
+
+```bash
+# Process with limited depth
+refac ./project "oldname" "newname" --max-depth 2
+
+# Target specific file types to reduce scope
+refac ./project "oldname" "newname" \
+  --include "*.rs" \
+  --exclude "*.log" \
+  --exclude "*.tmp"
+```
+
+## Integration Examples
+
+### CI/CD Pipeline Integration
+
+**Scenario**: Automated refactoring checks in your pipeline.
+
+```yaml
+# .github/workflows/refactor-check.yml
+name: Check for deprecated patterns
+
+on: [push, pull_request]
+
+jobs:
+  check-deprecated:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Refac
+        run: cargo install --git https://github.com/jowharshamshiri/refac
+        
+      - name: Check for deprecated patterns
+        run: |
+          # Check for deprecated function names
+          if refac . "deprecated_function" "new_function" --dry-run --format json | jq -e '.summary.total_changes > 0'; then
+            echo "Found deprecated patterns!"
+            exit 1
+          fi
+```
+
+### Git Hooks Integration
+
+**Scenario**: Prevent commits with certain patterns.
+
+```bash
+#!/bin/bash
+# .git/hooks/pre-commit
+
+# Check for debug statements
+if refac . "console.log" "" --dry-run --format json | jq -e '.summary.total_changes > 0' >/dev/null; then
+  echo "Error: Found console.log statements in code"
+  refac . "console.log" "" --dry-run --include "*.js" --include "*.ts"
+  echo "Please remove debug statements before committing"
   exit 1
-}
+fi
+
+# Check for TODO comments (warning only)
+if refac . "TODO" "" --dry-run --format json | jq -e '.summary.total_changes > 0' >/dev/null; then
+  echo "Warning: Found TODO comments in code"
+  refac . "TODO" "" --dry-run --include "*.rs" --include "*.js" --include "*.py"
+fi
+
+exit 0
 ```
 
-### 3. Incremental Approach
+## Troubleshooting Examples
+
+### Debugging No Changes Found
+
+**Scenario**: Refac reports no changes but you expect some.
+
 ```bash
-# Refactor one module at a time
-for module in auth users orders payments; do
-  echo "Refactoring $module..."
-  refac modernize --path "./src/$module"
-  npm test || break
-  git add -A
-  git commit -m "Refactor: modernize $module module"
-done
+# Use verbose mode to see what's happening
+refac . "search_term" "replacement" --dry-run --verbose
+
+# Check if the term exists
+grep -r "search_term" . --include="*.rs"
+
+# Verify include/exclude patterns
+refac . "search_term" "replacement" \
+  --dry-run \
+  --verbose \
+  --include "*" \
+  --exclude "target/*"
+
+# Test with broader patterns
+refac . "search_term" "replacement" \
+  --dry-run \
+  --ignore-case \
+  --include "*.rs"
 ```
 
-### 4. Document Changes
+### Handling Permission Issues
+
+**Scenario**: Some files can't be modified due to permissions.
+
 ```bash
-# Generate refactoring report
-refac report \
-  --changes \
-  --before-after \
-  --output refactoring-report.md \
-  --path ./src
+# Check file permissions
+ls -la problematic_file
+
+# Fix permissions if needed
+chmod 644 *.rs
+
+# Or run with appropriate permissions
+sudo refac . "oldname" "newname" --backup
+
+# Skip problematic files
+refac . "oldname" "newname" \
+  --exclude "readonly_files/*" \
+  --verbose
 ```
 
-## Conclusion
-
-These examples demonstrate Refac's versatility in handling various refactoring scenarios. Remember to:
-
-- Always preview changes before applying
-- Use version control to track changes
-- Run tests after each refactoring step
-- Start with small, isolated changes before tackling large-scale refactoring
-
-For more advanced usage, check out our [API Reference]({{ '/api-reference/' | relative_url }}) or join our [community discussions](https://github.com/jowharshamshiri/refac/discussions).
+These examples demonstrate the versatility and power of Refac for various refactoring scenarios. Remember to always use `--dry-run` first and maintain backups of important files.

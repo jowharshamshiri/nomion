@@ -7,21 +7,27 @@ layout: default
 
 1. Fork the repository
 2. Clone your fork:
+
 ```bash
-git clone https://github.com/your-username/refac-tool
+git clone https://github.com/your-username/refac
 ```
+
 3. Build the project:
+
 ```bash
 cargo build
 ```
 
 ## Testing
+
 Run the full test suite:
+
 ```bash
 cargo test --all-features
 ```
 
 ## Contribution Guidelines
+
 - Follow Rust coding conventions
 - Include tests for new features
 - Update documentation accordingly
@@ -29,6 +35,7 @@ cargo test --all-features
 - Open an issue before major changes
 
 ## Code Structure
+
 ```
 src/
 ├── cli.rs        # Command-line interface

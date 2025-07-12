@@ -1,10 +1,10 @@
 # Site settings
 title: Refac - Code Refactoring Tool
 description: >-
-  A powerful command-line tool for automated code refactoring across multiple programming languages.
+  A command-line tool for automated code refactoring across multiple programming languages.
   Simplify your codebase with intelligent pattern matching and transformation capabilities.
-author: Jowharshamshiri
-email: your-email@example.com
+author: Bahram Shamshiri
+email: jowharshamshiri@gmail.com
 baseurl: "/refac"
 url: "https://jowharshamshiri.github.io"
 

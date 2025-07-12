@@ -1,69 +1,131 @@
 ---
 layout: default
-title: Refac - Modern Code Refactoring Tool
+title: Refac - String Replacement Tool
 toc: false
 ---
 
-# Welcome to Refac
+# Refac
 
-Refac is a powerful command-line tool designed to automate code refactoring tasks across multiple programming languages. Built with modern development practices in mind, Refac helps you maintain clean, consistent, and maintainable codebases at scale.
+A robust, cross-platform command-line tool for recursive string replacement in file/folder names and contents. Designed for safety, reliability, and performance, making it suitable for mission-critical operations like large-scale project refactoring.
 
 ## Key Features
 
-- **Multi-Language Support**: Refactor code in Python, JavaScript, TypeScript, Java, C++, and more
-- **Pattern-Based Transformations**: Use sophisticated pattern matching to identify and transform code structures
-- **Safe Refactoring**: Preview changes before applying them to ensure accuracy
-- **Batch Processing**: Apply refactoring rules across entire codebases efficiently
-- **Extensible Architecture**: Add custom refactoring rules and language support
-- **Git Integration**: Seamlessly works with version control systems
+- **Dual Operation**: Replace strings in both file/directory names AND file contents
+- **Safety First**: Collision detection, dry-run mode, and binary file protection
+- **High Performance**: Multi-threaded processing with progress tracking
+- **Cross-Platform**: Works on Windows, macOS, and Linux
+- **Flexible Filtering**: Include/exclude patterns with glob and regex support
+- **Multiple Modes**: Files-only, directories-only, names-only, or content-only processing
 
 ## Quick Start
 
 ```bash
-# Install Refac
-npm install -g refac
+# Basic usage
+refac . "oldname" "newname"
 
-# Run a simple refactoring
-refac rename-function oldName newName --path ./src
+# Preview changes first (recommended)
+refac . "oldname" "newname" --dry-run
 
-# Preview changes without applying
-refac extract-method --preview --path ./src/utils.js
+# Only rename files/directories (skip content)
+refac . "oldname" "newname" --names-only
+
+# Only replace content (skip renaming)
+refac . "oldname" "newname" --content-only
+
+# Create backups before changes
+refac . "oldname" "newname" --backup
 ```
 
-## Why Refac?
+## Installation
 
-### Consistency at Scale
-Maintain consistent coding standards across large codebases with automated refactoring rules.
+### From Source
+```bash
+git clone https://github.com/jowharshamshiri/refac
+cd refac
+cargo build --release
+cargo install --path .
+```
 
-### Time-Saving
-Reduce hours of manual refactoring to minutes with intelligent pattern matching.
+### Pre-built Binaries
+Download from the [releases page](https://github.com/jowharshamshiri/refac/releases).
 
-### Error Prevention
-Eliminate human errors in repetitive refactoring tasks with automated transformations.
+## How It Works
 
-### Language Agnostic
-Work seamlessly across different programming languages with unified commands.
+Refac performs two types of operations:
 
-## Get Started
+1. **Name Replacement**: Renames files and directories containing the target string
+2. **Content Replacement**: Replaces strings inside text files (automatically skips binary files)
 
-<div class="alert alert-info">
-  <strong>New to Refac?</strong> Check out our <a href="{{ '/getting-started/' | relative_url }}">Getting Started Guide</a> for a comprehensive introduction.
-</div>
+By default, both operations are performed. Use mode flags to limit the scope:
+- `--names-only`: Only rename files/directories
+- `--content-only`: Only replace file contents
+- `--files-only`: Process files but not directories
+- `--dirs-only`: Process directories but not files
 
-Ready to transform your codebase? Explore our documentation:
+## Safety Features
 
-- [Installation Guide]({{ '/installation/' | relative_url }}) - Set up Refac on your system
-- [Usage Guide]({{ '/usage/' | relative_url }}) - Learn basic and advanced usage patterns
-- [API Reference]({{ '/api-reference/' | relative_url }}) - Detailed command and option reference
-- [Examples]({{ '/examples/' | relative_url }}) - Real-world refactoring scenarios
-- [Contributing]({{ '/contributing/' | relative_url }}) - Join the Refac community
+- **Collision Detection**: Prevents overwriting existing files
+- **Binary File Detection**: Automatically skips binary files for content replacement
+- **Dry Run Mode**: Preview all changes before applying them
+- **Backup Support**: Create backups of modified files
+- **Confirmation Prompts**: Interactive confirmation (unless `--force` is used)
 
-## Community & Support
+## Performance
 
-- **GitHub**: [jowharshamshiri/refac](https://github.com/jowharshamshiri/refac)
-- **Issues**: [Report bugs or request features](https://github.com/jowharshamshiri/refac/issues)
-- **Discussions**: [Join the conversation](https://github.com/jowharshamshiri/refac/discussions)
+- **Multi-threaded**: Parallel content processing for large codebases
+- **Streaming**: Efficient handling of large files
+- **Progress Tracking**: Visual progress bars with detailed information
+- **Smart Filtering**: Process only relevant files with include/exclude patterns
+
+## Common Use Cases
+
+### Project Refactoring
+```bash
+# Rename a class throughout a codebase
+refac ./src "OldClassName" "NewClassName"
+
+# Rename variables (case-sensitive)
+refac ./project "old_variable" "new_variable"
+```
+
+### File Organization
+```bash
+# Rename files only, skip content
+refac ./docs "draft" "final" --names-only
+
+# Update file contents only, keep names
+refac ./config "old.example.com" "new.example.com" --content-only
+```
+
+### Bulk Operations
+```bash
+# Process specific file types
+refac ./src "oldname" "newname" --include "*.rs" --include "*.toml"
+
+# Exclude certain directories
+refac ./project "oldname" "newname" --exclude "target/*" --exclude "*.log"
+```
+
+## Best Practices
+
+1. **Always test first**: Use `--dry-run` to preview changes
+2. **Use version control**: Commit your code before running refac
+3. **Create backups**: Use `--backup` for important changes
+4. **Be specific**: Use include/exclude patterns to limit scope
+5. **Test after changes**: Run your tests after refactoring
+
+## Getting Help
+
+- View all options: `refac --help`
+- Check version: `refac --version`
+- Report issues: [GitHub Issues](https://github.com/jowharshamshiri/refac/issues)
+
+## Documentation
+
+- [Installation Guide]({{ '/installation/' | relative_url }}) - Detailed installation instructions
+- [Usage Guide]({{ '/usage/' | relative_url }}) - Comprehensive usage examples
+- [Command Reference]({{ '/api-reference/' | relative_url }}) - Complete command-line reference
 
 ## License
 
-Refac is open source software licensed under the MIT License.
+MIT License - see the [LICENSE](https://github.com/jowharshamshiri/refac/blob/main/LICENSE) file for details.

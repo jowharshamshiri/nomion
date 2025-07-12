@@ -1,408 +1,396 @@
 ---
 layout: default
-title: API Reference
+title: Command Reference
 ---
 
-# API Reference
+# Command Reference
 
-This comprehensive reference covers all Refac commands, options, and configuration settings.
+Complete reference for all Refac command-line options and usage patterns.
 
-## Global Options
+## Synopsis
 
-These options are available for all commands:
+```bash
+refac <ROOT_DIR> <OLD_STRING> <NEW_STRING> [OPTIONS]
+```
 
-| Option | Alias | Description | Default |
+## Arguments
+
+### Required Arguments
+
+| Argument | Description |
+|----------|-------------|
+| `ROOT_DIR` | Root directory to search in (use `.` for current directory) |
+| `OLD_STRING` | String to find and replace |
+| `NEW_STRING` | Replacement string |
+
+### Argument Validation
+
+- `ROOT_DIR` must exist and be a directory
+- `OLD_STRING` cannot be empty
+- `NEW_STRING` cannot be empty
+- `NEW_STRING` cannot contain path separators (`/` or `\`)
+
+## Options
+
+### Basic Options
+
+| Option | Short | Description | Default |
 |--------|-------|-------------|---------|
-| `--path` | `-p` | Target path (file or directory) | Current directory |
-| `--preview` | | Show changes without applying | `false` |
-| `--dry-run` | | Generate diff without modifying files | `false` |
-| `--config` | `-c` | Configuration file path | `.refacrc` |
-| `--verbose` | `-v` | Enable verbose output | `false` |
-| `--quiet` | `-q` | Suppress non-error output | `false` |
-| `--no-color` | | Disable colored output | `false` |
-| `--help` | `-h` | Show help | |
-| `--version` | | Show version | |
+| `--dry-run` | `-d` | Show what would be changed without making changes | `false` |
+| `--force` | `-f` | Skip confirmation prompt | `false` |
+| `--verbose` | `-v` | Show detailed output | `false` |
+| `--help` | `-h` | Show help information | |
+| `--version` | `-V` | Show version information | |
 
-## Commands
+### Safety Options
 
-### rename-function
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--backup` | `-b` | Create backup files before modifying content | `false` |
+| `--follow-symlinks` | Follow symbolic links | `false` |
 
-Rename functions across your codebase.
+### Operation Mode Options
 
-```bash
-refac rename-function <old-name> <new-name> [options]
-```
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--files-only` | Only process files (skip directories) | `false` |
+| `--dirs-only` | Only process directories (skip files) | `false` |
+| `--names-only` | Skip content replacement, only rename files/directories | `false` |
+| `--content-only` | Skip file/directory renaming, only replace content | `false` |
 
-**Arguments:**
-- `old-name`: Current function name (supports wildcards)
-- `new-name`: New function name (supports placeholders)
+**Note**: Only one mode flag can be specified at a time.
 
-**Options:**
-- `--scope`: Limit to specific scope (global, class, module)
-- `--language`: Override detected language
-- `--update-references`: Update all references (default: true)
+### Filtering Options
 
-**Examples:**
-```bash
-# Simple rename
-refac rename-function getUserData fetchUserData
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--include <PATTERN>` | Include only files matching pattern (glob) | Include all |
+| `--exclude <PATTERN>` | Exclude files matching pattern (glob) | Exclude none |
+| `--max-depth <N>` | Maximum depth to search (0 = unlimited) | `0` |
 
-# With wildcards
-refac rename-function 'get*' 'fetch$1' --path ./src
+**Note**: Multiple `--include` and `--exclude` patterns can be specified.
 
-# Class methods only
-refac rename-function render renderComponent --scope class
-```
+### Performance Options
 
-### rename-variable
+| Option | Short | Description | Default |
+|--------|-------|-------------|---------|
+| `--threads <N>` | `-j` | Number of threads to use (0 = auto) | `0` |
 
-Rename variables with scope awareness.
+### Pattern Matching Options
 
-```bash
-refac rename-variable <old-name> <new-name> [options]
-```
+| Option | Short | Description | Default |
+|--------|-------|-------------|---------|
+| `--ignore-case` | `-i` | Ignore case when matching patterns | `false` |
+| `--regex` | `-r` | Use regex patterns instead of literal strings | `false` |
 
-**Options:**
-- `--scope`: Variable scope (local, global, parameter)
-- `--type`: Variable type (const, let, var)
-- `--update-references`: Update all references (default: true)
+### Output Options
 
-**Examples:**
-```bash
-# Rename local variable
-refac rename-variable count totalCount --path ./utils.js
+| Option | Description | Values | Default |
+|--------|-------------|--------|---------|
+| `--format <FORMAT>` | Output format | `human`, `json`, `plain` | `human` |
+| `--progress <MODE>` | Progress display mode | `auto`, `always`, `never` | `auto` |
 
-# Rename only const variables
-refac rename-variable API_KEY API_SECRET --type const
-```
+## Operation Modes
 
-### extract-method
+### Full Mode (Default)
 
-Extract code into a new method or function.
+Processes both file/directory names and file contents.
 
 ```bash
-refac extract-method [options]
+refac . "oldname" "newname"
 ```
 
-**Options:**
-- `--pattern`: Code pattern to extract
-- `--name`: Name for the extracted method
-- `--start-line`: Starting line number
-- `--end-line`: Ending line number
-- `--parameters`: Comma-separated parameter names
+### Files Only Mode
 
-**Examples:**
-```bash
-# Extract by pattern
-refac extract-method \
-  --pattern 'for (let i = 0; i < items.length; i++)' \
-  --name processItems
-
-# Extract by line range
-refac extract-method \
-  --start-line 10 \
-  --end-line 25 \
-  --name calculateResult \
-  --path ./calc.js
-```
-
-### inline-function
-
-Replace function calls with their implementation.
+Process only files, skip directories.
 
 ```bash
-refac inline-function <function-name> [options]
+refac . "oldname" "newname" --files-only
 ```
 
-**Options:**
-- `--preserve-comments`: Keep function comments
-- `--single-use-only`: Only inline single-use functions
+### Directories Only Mode
 
-**Examples:**
-```bash
-# Inline all calls
-refac inline-function simpleHelper --path ./src
-
-# Inline only single-use functions
-refac inline-function helperFunction --single-use-only
-```
-
-### move-function
-
-Move functions between files.
+Process only directories, skip files.
 
 ```bash
-refac move-function <function-name> --to <target-file> [options]
+refac . "oldname" "newname" --dirs-only
 ```
 
-**Options:**
-- `--update-imports`: Update import statements (default: true)
-- `--export-style`: Export style (named, default, none)
+### Names Only Mode
 
-**Examples:**
-```bash
-# Move to another file
-refac move-function validateEmail --to ./validators/email.js
-
-# Move with specific export style
-refac move-function processData --to ./processors.js --export-style default
-```
-
-### transform
-
-Apply custom transformations using patterns.
+Only rename files and directories, skip content replacement.
 
 ```bash
-refac transform --pattern <search> --replacement <replace> [options]
+refac . "oldname" "newname" --names-only
 ```
 
-**Options:**
-- `--pattern`: Search pattern (regex or AST pattern)
-- `--replacement`: Replacement pattern
-- `--language`: Target language
-- `--ast`: Use AST-based matching
+### Content Only Mode
 
-**Examples:**
-```bash
-# Simple text replacement
-refac transform \
-  --pattern 'console.log' \
-  --replacement 'logger.debug'
-
-# AST-based transformation
-refac transform \
-  --pattern 'if ($cond) return true; else return false;' \
-  --replacement 'return $cond;' \
-  --ast
-```
-
-### enforce-naming
-
-Enforce naming conventions across your codebase.
+Only replace content in files, skip renaming.
 
 ```bash
-refac enforce-naming [options]
+refac . "oldname" "newname" --content-only
 ```
 
-**Options:**
-- `--style`: Naming style (camelCase, PascalCase, snake_case, UPPER_SNAKE_CASE)
-- `--type`: Target type (functions, variables, classes, constants)
-- `--fix`: Automatically fix violations
+## Pattern Matching
 
-**Examples:**
+### Glob Patterns
+
+Use glob patterns for include/exclude filters:
+
 ```bash
-# Check naming violations
-refac enforce-naming --style camelCase --type functions
+# Include specific file types
+refac . "old" "new" --include "*.rs" --include "*.toml"
 
-# Fix violations automatically
-refac enforce-naming --style PascalCase --type classes --fix
+# Exclude directories
+refac . "old" "new" --exclude "target/*" --exclude "node_modules/*"
+
+# Include hidden files
+refac . "old" "new" --include ".*"
 ```
 
-## Configuration
+#### Glob Pattern Syntax
 
-### Configuration File
+| Pattern | Matches |
+|---------|---------|
+| `*` | Any sequence of characters |
+| `?` | Any single character |
+| `[abc]` | Any character in brackets |
+| `[a-z]` | Any character in range |
+| `**` | Recursive directory match |
 
-Create a `.refacrc` or `refac.config.js` file:
+### Regular Expressions
 
+Use regex patterns with the `--regex` flag:
+
+```bash
+# Match word boundaries
+refac . "\\bold\\b" "new" --regex
+
+# Case-insensitive regex
+refac . "old.*name" "newname" --regex --ignore-case
+
+# Match numbers
+refac . "version_\\d+" "version_2" --regex
+```
+
+## Output Formats
+
+### Human Format (Default)
+
+Colored, interactive output with progress bars:
+
+```bash
+refac . "old" "new"
+```
+
+Example output:
+```
+=== REFAC TOOL ===
+Root directory: /project
+Old string: 'old'
+New string: 'new'
+Mode: Full
+
+Phase 1: Discovering files and directories...
+Phase 2: Checking for naming collisions...
+
+=== CHANGE SUMMARY ===
+Content modifications: 15 file(s)
+File renames:         8 file(s)
+Directory renames:    3 directory(ies)
+Total changes:        26
+
+Do you want to proceed? (y/N) y
+
+Replacing content in files...
+Renaming files and directories...
+
+=== OPERATION COMPLETE ===
+Operation completed successfully!
+Total changes applied: 26
+```
+
+### JSON Format
+
+Machine-readable output for scripting:
+
+```bash
+refac . "old" "new" --format json
+```
+
+Example output:
 ```json
 {
-  "language": "javascript",
-  "parser": {
-    "ecmaVersion": 2022,
-    "sourceType": "module"
+  "summary": {
+    "content_changes": 15,
+    "file_renames": 8,
+    "directory_renames": 3,
+    "total_changes": 26
   },
-  "exclude": [
-    "node_modules/**",
-    "dist/**",
-    "*.min.js"
-  ],
-  "include": [
-    "src/**/*.js",
-    "lib/**/*.js"
-  ],
-  "rules": {
-    "naming": {
-      "functions": "camelCase",
-      "classes": "PascalCase",
-      "constants": "UPPER_SNAKE_CASE",
-      "variables": "camelCase"
-    },
-    "complexity": {
-      "maxFunctionLength": 50,
-      "maxFileLength": 300,
-      "maxParameters": 5
-    }
-  },
-  "transformations": {
-    "modernize": true,
-    "removeDeadCode": true,
-    "optimizeImports": true
-  },
-  "safeMode": true,
-  "backup": {
-    "enabled": true,
-    "directory": ".refac-backup"
-  }
+  "result": "success",
+  "dry_run": false
 }
 ```
 
-### Environment Variables
+### Plain Format
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `REFAC_CONFIG` | Configuration file path | `.refacrc` |
-| `REFAC_LANG` | Default language | Auto-detect |
-| `REFAC_SAFE_MODE` | Enable safe mode | `true` |
-| `REFAC_COLOR` | Enable colored output | `true` |
-| `REFAC_LOG_LEVEL` | Log level (error, warn, info, debug) | `info` |
+Simple text output without colors:
 
-## Language Support
-
-### JavaScript/TypeScript
-
-Full support for ES2022+ features:
-- Classes and decorators
-- Async/await
-- Modules (ESM and CommonJS)
-- JSX/TSX
-- Type annotations
-
-### Python
-
-Support for Python 3.6+:
-- Classes and decorators
-- Async functions
-- Type hints
-- f-strings
-
-### Java
-
-Support for Java 8+:
-- Classes and interfaces
-- Lambdas
-- Generics
-- Annotations
-
-### Other Languages
-
-Basic support for:
-- C/C++
-- Go
-- Ruby
-- PHP
-- Rust
+```bash
+refac . "old" "new" --format plain
+```
 
 ## Exit Codes
 
-| Code | Description |
-|------|-------------|
-| 0 | Success |
-| 1 | General error |
-| 2 | Invalid arguments |
-| 3 | File not found |
-| 4 | Parse error |
-| 5 | Configuration error |
-| 6 | No changes needed |
-| 7 | User cancelled |
+| Code | Meaning |
+|------|---------|
+| `0` | Success |
+| `1` | General error |
+| `2` | Invalid arguments |
+| `3` | Permission denied |
+| `4` | File not found |
+| `5` | Naming collision detected |
 
-## Programmatic API
+## Examples
 
-Use Refac in your Node.js applications:
-
-```javascript
-const refac = require('refac');
-
-// Rename function
-await refac.renameFunction({
-  oldName: 'getUserData',
-  newName: 'fetchUserData',
-  path: './src',
-  preview: false
-});
-
-// Extract method
-const result = await refac.extractMethod({
-  pattern: 'complex calculation',
-  name: 'calculateResult',
-  path: './utils.js'
-});
-
-// Custom transformation
-await refac.transform({
-  pattern: /console\.log/g,
-  replacement: 'logger.debug',
-  path: './src'
-});
-```
-
-## Advanced Patterns
-
-### AST Pattern Matching
-
-Use AST patterns for precise matching:
+### Basic Usage
 
 ```bash
-# Match specific function calls
-refac transform \
-  --pattern 'fetch($url).then($handler)' \
-  --replacement 'await fetch($url)' \
-  --ast
+# Simple replacement
+refac . "oldname" "newname"
 
-# Match conditional returns
-refac transform \
-  --pattern 'if ($cond) { return $val1; } else { return $val2; }' \
-  --replacement 'return $cond ? $val1 : $val2;' \
-  --ast
+# Preview changes
+refac . "oldname" "newname" --dry-run
+
+# Force without confirmation
+refac . "oldname" "newname" --force
 ```
 
-### Batch Operations
-
-Create complex refactoring scripts:
+### File Type Filtering
 
 ```bash
-#!/bin/bash
-# refactor-legacy.sh
+# Only Rust files
+refac . "old_function" "new_function" --include "*.rs"
 
-# Step 1: Update variable declarations
-refac transform --pattern 'var' --replacement 'const' --path ./legacy
+# Multiple file types
+refac . "oldname" "newname" --include "*.js" --include "*.ts" --include "*.json"
 
-# Step 2: Convert functions to arrow functions
-refac modernize-functions --arrow --path ./legacy
-
-# Step 3: Extract constants
-refac extract-constants --to ./constants.js --path ./legacy
-
-# Step 4: Enforce naming conventions
-refac enforce-naming --fix --config .refacrc --path ./legacy
+# Exclude build artifacts
+refac . "oldname" "newname" --exclude "target/*" --exclude "*.log"
 ```
 
-## Troubleshooting
+### Mode Examples
 
-### Common Issues
-
-**Parse Errors:**
 ```bash
-# Increase parser tolerance
-refac rename-function oldName newName --parser-strict false
+# Only rename files, don't change content
+refac ./docs "draft" "final" --names-only
 
-# Specify language explicitly
-refac rename-function oldName newName --language javascript
+# Only change content, don't rename files
+refac ./config "old.server.com" "new.server.com" --content-only
+
+# Only process files, skip directories
+refac . "oldname" "newname" --files-only
 ```
 
-**Performance:**
+### Advanced Options
+
 ```bash
-# Limit scope for large codebases
-refac rename-variable foo bar --include "src/components/**"
+# Limit search depth
+refac . "oldname" "newname" --max-depth 3
 
-# Use parallel processing
-refac transform --pattern "old" --replacement "new" --parallel 4
+# Use more threads
+refac . "oldname" "newname" --threads 8
+
+# Case-insensitive matching
+refac . "oldname" "newname" --ignore-case
+
+# Regex patterns
+refac . "old_\\w+" "new_name" --regex
 ```
 
-**Memory Issues:**
+### Safety Features
+
 ```bash
-# Process in batches
-refac rename-function oldFunc newFunc --batch-size 100
+# Create backups
+refac . "oldname" "newname" --backup
 
-# Increase memory limit
-NODE_OPTIONS="--max-old-space-size=4096" refac transform --pattern "pattern"
+# Verbose output for debugging
+refac . "oldname" "newname" --dry-run --verbose
 ```
+
+### Output Formats
+
+```bash
+# JSON output for scripts
+refac . "oldname" "newname" --format json
+
+# Plain text output
+refac . "oldname" "newname" --format plain
+
+# Disable progress bars
+refac . "oldname" "newname" --progress never
+```
+
+## Limitations
+
+### String Restrictions
+
+- Old string cannot be empty
+- New string cannot be empty
+- New string cannot contain path separators (`/` or `\`)
+
+### Performance Limits
+
+- Maximum thread count: 1000
+- Maximum search depth: 1000
+
+### File Handling
+
+- Binary files are automatically skipped for content replacement
+- Symlinks are not followed unless `--follow-symlinks` is specified
+- Very large files may require additional memory
+
+## Error Handling
+
+### Common Error Messages
+
+**"Root directory does not exist"**
+- Check that the specified directory path is correct
+
+**"Cannot specify more than one mode flag"**
+- Use only one of: `--files-only`, `--dirs-only`, `--names-only`, `--content-only`
+
+**"New string cannot contain path separators"**
+- Remove `/` or `\` characters from the new string
+
+**"Naming collision detected"**
+- Review the collision report and resolve conflicts manually
+
+### Debugging
+
+Use verbose mode to see detailed operation information:
+
+```bash
+refac . "oldname" "newname" --dry-run --verbose
+```
+
+This will show:
+- Which files are being processed
+- Which files are being skipped
+- Why files are being skipped
+- Detailed pattern matching information
+
+## Getting Help
+
+```bash
+# Show help
+refac --help
+
+# Show version
+refac --version
+```
+
+For more information:
+- [Usage Guide]({{ '/usage/' | relative_url }}) - Comprehensive usage examples
+- [GitHub Issues](https://github.com/jowharshamshiri/refac/issues) - Report bugs or request features
