@@ -1,0 +1,49 @@
+:root {
+    --primary: #3498db;
+    --secondary: #2c3e50;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.feature {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border-left: 4px solid var(--primary);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: var(--primary);
+    color: white !important;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 0.5rem 0.5rem 0.5rem 0;
+    font-weight: 600;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary) !important;
+}
+
+code {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+
+pre {
+    background: #2c3e50;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+}
