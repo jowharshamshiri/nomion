@@ -1,22 +1,78 @@
-title: Refac Tool
-description: Robust cross-platform tool for recursive string replacement
-theme: jekyll-theme-cayman
-baseurl: "/refac"  # Your repository name
-url: "https://jowharshamshiri.github.io"  # Your GitHub Pages URL
-permalink: pretty  # Add this for clean URLs
+# Site settings
+title: Refac - Code Refactoring Tool
+description: >-
+  A powerful command-line tool for automated code refactoring across multiple programming languages.
+  Simplify your codebase with intelligent pattern matching and transformation capabilities.
+author: Jowharshamshiri
+email: your-email@example.com
+baseurl: "/refac"
+url: "https://jowharshamshiri.github.io"
 
+# Build settings
+theme: jekyll-theme-minimal
+markdown: kramdown
+highlighter: rouge
+
+# Plugins
 plugins:
-  - jekyll-relative-links
+  - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-relative-links
+  - jekyll-toc
+  - jekyll-github-metadata
 
-collections:
-  examples:
-    output: true
-    permalink: /examples/:path/
+# Permalink structure
+permalink: /:title/
 
+# Table of Contents
+toc:
+  min_level: 2
+  max_level: 3
+  list_class: toc-list
+  item_class: toc-item
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Getting Started
+    url: /getting-started/
+  - title: Installation
+    url: /installation/
+  - title: Usage Guide
+    url: /usage/
+  - title: API Reference
+    url: /api-reference/
+  - title: Examples
+    url: /examples/
+  - title: Contributing
+    url: /contributing/
+
+# GitHub repository information
+repository: jowharshamshiri/refac
+github:
+  repository_name: refac
+  repository_nwo: jowharshamshiri/refac
+
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .sass-cache/
+  - .jekyll-cache/
+  - .jekyll-metadata
+
+# Defaults
 defaults:
   - scope:
       path: ""
+      type: "pages"
     values:
-      layout: default
+      layout: "default"
       toc: true
