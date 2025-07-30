@@ -571,7 +571,7 @@ dependencies = [
 
 [[package]]
 name = "nomion"
-version = "0.32.19663"
+version = "0.33.19669"
 dependencies = [
  "anyhow",
  "assert_cmd",
