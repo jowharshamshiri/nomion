@@ -1,0 +1,7 @@
+[2025-07-30 20:24:03] Updated existing pre-commit hook: /Users/bahram/ws/prj/workspace/.git/hooks/pre-commit
+[2025-07-31 00:27:31] Updated version to: 0.36.31020 (file: version.txt)
+[2025-07-31 00:27:31] Rendered template: RELEASE.md
+[2025-07-31 00:28:01] Updated version to: 0.37.31851 (file: version.txt)
+[2025-07-31 00:28:01] Rendered template: RELEASE.md
+[2025-07-31 00:28:01] Added to git: version.txt
+[2025-07-31 00:28:01] Added to git: RELEASE.md
