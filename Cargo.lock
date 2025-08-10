@@ -3525,7 +3525,7 @@ dependencies = [
 
 [[package]]
 name = "workspace"
-version = "0.47.89305"
+version = "0.48.108153"
 dependencies = [
  "anyhow",
  "assert_cmd",
