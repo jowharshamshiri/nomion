@@ -1,0 +1,128 @@
+[2025-07-30 20:24:03] Updated existing pre-commit hook: /Users/bahram/ws/prj/workspace/.git/hooks/pre-commit
+[2025-07-31 00:27:31] Updated version to: 0.36.31020 (file: version.txt)
+[2025-07-31 00:27:31] Rendered template: RELEASE.md
+[2025-07-31 00:28:01] Updated version to: 0.37.31851 (file: version.txt)
+[2025-07-31 00:28:01] Rendered template: RELEASE.md
+[2025-07-31 00:28:01] Added to git: version.txt
+[2025-07-31 00:28:01] Added to git: RELEASE.md
+[2025-07-31 19:14:06] Updated version to: 0.40.36332 (file: version.txt)
+[2025-07-31 19:14:06] Rendered template: RELEASE.md
+[2025-07-31 19:14:06] Added to git: version.txt
+[2025-07-31 19:14:06] Added to git: RELEASE.md
+[2025-08-03 19:49:55 UTC] Updated version to: 0.41.38063
+[2025-08-03 19:49:56 UTC] Added file to git: version.txt
+[2025-08-03 19:49:56 UTC] Added file to git: RELEASE.md
+[2025-08-03 21:53:23 UTC] Updated version to: 0.42.55914
+[2025-08-03 21:53:24 UTC] Added file to git: version.txt
+[2025-08-03 21:53:24 UTC] Added file to git: RELEASE.md
+[2025-08-05 15:37:44 UTC] Updated version to: 0.43.56532
+[2025-08-05 15:37:44 UTC] Added file to git: version.txt
+[2025-08-05 15:37:44 UTC] Added file to git: RELEASE.md
+[2025-08-06 11:59:17 UTC] Updated version to: 0.44.68455
+[2025-08-06 11:59:17 UTC] Added file to git: version.txt
+[2025-08-06 11:59:17 UTC] Added file to git: RELEASE.md
+[2025-08-08 21:08:52 UTC] Updated version to: 0.45.72626
+[2025-08-08 21:08:52 UTC] Added file to git: version.txt
+[2025-08-08 21:08:52 UTC] Added file to git: RELEASE.md
+[2025-08-08 22:14:11 UTC] Updated version to: 0.46.79711
+[2025-08-08 22:14:12 UTC] Added file to git: version.txt
+[2025-08-08 22:14:12 UTC] Added file to git: RELEASE.md
+[2025-08-10 06:39:05 UTC] Updated version to: 0.47.89305
+[2025-08-10 06:39:05 UTC] Added file to git: version.txt
+[2025-08-10 06:39:05 UTC] Added file to git: RELEASE.md
+[2025-08-10 08:57:24 UTC] Updated version to: 0.48.108153
+[2025-08-10 08:57:25 UTC] Added file to git: version.txt
+[2025-08-10 08:57:25 UTC] Added file to git: RELEASE.md
+[2025-08-10 09:13:43 UTC] Updated version to: 0.49.110943
+[2025-08-10 09:13:45 UTC] Added file to git: version.txt
+[2025-08-10 09:13:45 UTC] Added file to git: RELEASE.md
+[2025-08-10 09:47:17 UTC] Updated version to: 0.50.111008
+[2025-08-10 09:47:18 UTC] Added file to git: version.txt
+[2025-08-10 09:47:18 UTC] Added file to git: RELEASE.md
+[2025-08-10 11:51:52 UTC] Updated version to: 0.51.111040
+[2025-08-10 11:51:53 UTC] Added file to git: version.txt
+[2025-08-10 11:51:53 UTC] Added file to git: RELEASE.md
+[2025-08-10 18:05:23 UTC] Updated version to: 0.52.111061
+[2025-08-10 18:05:25 UTC] Added file to git: version.txt
+[2025-08-10 18:05:25 UTC] Added file to git: RELEASE.md
+[2025-08-17 10:42:48 UTC] Updated version to: 0.53.111076
+[2025-08-17 10:42:50 UTC] Added file to git: version.txt
+[2025-08-17 10:42:50 UTC] Added file to git: RELEASE.md
+[2025-08-23 17:21:38 UTC] Updated version to: 0.54.124840
+[2025-08-23 17:21:38 UTC] Added file to git: version.txt
+[2025-08-23 17:21:38 UTC] Added file to git: RELEASE.md
+[2025-08-24 13:07:56.544 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:07:56.545 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:07:56.545 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:07:56.545 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:07:56.545 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:07:56.545 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:07:56.545 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:08:16.162 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:08:16.164 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:08:16.164 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:08:16.164 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:08:16.164 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:08:16.164 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:08:16.164 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:08:16.268 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:08:16.268 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:08:16.268 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:08:16.268 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:08:16.288 ERROR ws] Application error: error returned from database: (code: 787) FOREIGN KEY constraint failed: (code: 787) FOREIGN KEY constraint failed
+[2025-08-24 13:08:34.717 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:08:34.718 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:08:34.718 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:08:34.719 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:08:34.719 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:08:34.719 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:08:34.719 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:08:34.762 INFO  ws] Workspace tool completed successfully
+[2025-08-24 13:17:30.410 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:17:30.412 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:17:30.412 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:17:30.413 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:17:30.413 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:17:30.413 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:17:30.413 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:17:58.278 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:17:58.280 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:17:58.280 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:17:58.281 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:17:58.281 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:17:58.281 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:17:58.281 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:17:58.453 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:17:58.453 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:17:58.453 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:17:58.453 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:17:58.457 ERROR ws] Application error: error returned from database: (code: 1) no such column: st8_enabled: (code: 1) no such column: st8_enabled
+[2025-08-24 13:19:51.994 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:19:51.995 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:19:51.995 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:19:51.995 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:19:51.995 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:19:51.995 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:19:51.995 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:19:52.030 INFO  ws] Workspace tool completed successfully
+[2025-08-24 13:37:00.361 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:37:00.362 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:37:00.362 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:37:00.363 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:37:00.363 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:37:00.363 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:37:00.363 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:38:01.006 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:38:01.007 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:38:01.007 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:38:01.007 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:38:01.007 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:38:01.007 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:38:01.007 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:38:01.012 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:38:01.012 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:38:01.077 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:38:01.077 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:38:01.077 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:38:01.077 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:38:01.085 ERROR ws] Application error: error returned from database: (code: 1) no such column: st8_enabled: (code: 1) no such column: st8_enabled
