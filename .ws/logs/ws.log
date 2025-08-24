@@ -126,3 +126,105 @@
 [2025-08-24 13:38:01.077 INFO  workspace::entities::database] Database tables initialized successfully
 [2025-08-24 13:38:01.077 INFO  workspace::entities::database] Database tables initialized successfully
 [2025-08-24 13:38:01.085 ERROR ws] Application error: error returned from database: (code: 1) no such column: st8_enabled: (code: 1) no such column: st8_enabled
+[2025-08-24 13:40:05.612 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:40:05.613 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:40:05.613 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:40:05.613 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:40:05.613 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:40:05.613 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:40:05.613 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:40:05.620 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:40:05.620 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:40:05.655 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:40:05.655 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:40:05.655 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:40:05.655 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:40:05.657 ERROR ws] Application error: error returned from database: (code: 1) no such column: st8_enabled: (code: 1) no such column: st8_enabled
+[2025-08-24 13:56:29.972 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:56:29.974 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:56:29.974 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:56:29.975 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:56:29.975 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:56:29.975 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:56:29.975 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:56:29.988 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:56:29.988 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:56:30.050 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:56:30.050 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:56:30.050 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:56:30.050 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:56:30.054 ERROR ws] Application error: error returned from database: (code: 1) no such column: st8_enabled: (code: 1) no such column: st8_enabled
+[2025-08-24 13:57:47.563 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:57:47.564 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:57:47.564 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:57:47.564 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:57:47.564 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:57:47.564 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:57:47.564 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:57:47.566 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:57:47.566 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:57:47.599 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:57:47.599 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:57:47.599 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:57:47.599 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:57:47.601 ERROR ws] Application error: error returned from database: (code: 1) no such column: version_file: (code: 1) no such column: version_file
+[2025-08-24 13:58:15.851 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:58:15.852 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:58:15.852 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:58:15.852 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:58:15.852 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:58:15.852 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:58:15.852 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:58:15.857 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:58:15.857 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:58:16.000 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:16.000 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:16.000 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:16.000 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:16.006 INFO  workspace::entities::database] Setting initial schema version to 1
+[2025-08-24 13:58:16.006 INFO  workspace::entities::database] Setting initial schema version to 1
+[2025-08-24 13:58:16.042 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:16.042 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:16.042 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:16.042 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:16.541 INFO  ws] Version updated to: 0.55.147140
+[2025-08-24 13:58:16.919 INFO  ws] Rendered 1 templates: RELEASE.md
+[2025-08-24 13:58:16.945 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:16.946 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:16.946 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:16.946 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:17.495 INFO  workspace::st8::st8_common] Updated project files: /Users/bahram/ws/prj/workspace/Cargo.toml, /Users/bahram/ws/prj/workspace/package.json
+[2025-08-24 13:58:17.495 INFO  workspace::st8::st8_common] Updated project files: /Users/bahram/ws/prj/workspace/Cargo.toml, /Users/bahram/ws/prj/workspace/package.json
+[2025-08-24 13:58:17.495 INFO  ws] Updated version file: version.txt
+[2025-08-24 13:58:17.532 INFO  workspace::logging] Completed update in 1.68s
+[2025-08-24 13:58:17.532 INFO  workspace::logging] Completed update in 1.68s
+[2025-08-24 13:58:17.532 INFO  ws] Workspace tool completed successfully
+[2025-08-24 13:58:21.363 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:58:21.363 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 13:58:21.363 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:58:21.363 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 13:58:21.363 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:58:21.363 INFO  workspace::logging] Workspace v0.54.124840
+[2025-08-24 13:58:21.364 INFO  ws] Starting workspace tool suite
+[2025-08-24 13:58:21.364 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:58:21.364 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 13:58:21.381 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:21.381 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:21.381 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:21.381 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:21.410 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:21.410 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:21.410 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:21.410 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:21.846 INFO  ws] Version updated to: 0.56.181850
+[2025-08-24 13:58:22.272 INFO  ws] Rendered 1 templates: RELEASE.md
+[2025-08-24 13:58:22.293 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:22.293 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 13:58:22.293 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:22.293 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 13:58:22.759 INFO  workspace::st8::st8_common] Updated project files: /Users/bahram/ws/prj/workspace/Cargo.toml, /Users/bahram/ws/prj/workspace/package.json
+[2025-08-24 13:58:22.759 INFO  workspace::st8::st8_common] Updated project files: /Users/bahram/ws/prj/workspace/Cargo.toml, /Users/bahram/ws/prj/workspace/package.json
+[2025-08-24 13:58:22.759 INFO  ws] Updated version file: version.txt
+[2025-08-24 13:58:22.881 INFO  workspace::logging] Completed update in 1.52s
+[2025-08-24 13:58:22.881 INFO  workspace::logging] Completed update in 1.52s
+[2025-08-24 13:58:22.881 INFO  ws] Workspace tool completed successfully
