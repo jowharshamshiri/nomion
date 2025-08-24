@@ -365,3 +365,41 @@
 [2025-08-24 14:14:07.716 INFO  ws] Updated version file: version.txt
 [2025-08-24 14:14:07.749 INFO  ws] Added file to git: version.txt
 [2025-08-24 14:14:07.767 INFO  ws] Added file to git: RELEASE.md
+[2025-08-24 14:14:07.786 INFO  ws] Added file to git: .ws/logs/ws.log
+[2025-08-24 14:14:07.801 INFO  ws] Added file to git: .ws/project.db
+[2025-08-24 14:14:07.820 INFO  ws] Added file to git: .ws/project.db-shm
+[2025-08-24 14:14:07.839 INFO  ws] Added file to git: .ws/project.db-wal
+[2025-08-24 14:14:07.859 INFO  ws] Added file to git: .ws/state.json
+[2025-08-24 14:14:07.859 INFO  ws] Added 7 files to git staging area: version.txt, RELEASE.md, .ws/logs/ws.log, .ws/project.db, .ws/project.db-shm, .ws/project.db-wal, .ws/state.json
+[2025-08-24 14:14:07.860 INFO  workspace::logging] Completed update in 2.43s
+[2025-08-24 14:14:07.860 INFO  workspace::logging] Completed update in 2.43s
+[2025-08-24 14:14:07.860 INFO  ws] Workspace tool completed successfully
+[2025-08-24 15:09:06.740 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 15:09:06.742 INFO  workspace::logging] Logging initialized: /Users/bahram/ws/prj/workspace/.ws/logs/ws.log
+[2025-08-24 15:09:06.742 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 15:09:06.743 DEBUG workspace::logging] Debug logging enabled, console level: Warn
+[2025-08-24 15:09:06.743 INFO  workspace::logging] Workspace v0.56.181850
+[2025-08-24 15:09:06.743 INFO  workspace::logging] Workspace v0.56.181850
+[2025-08-24 15:09:06.743 INFO  ws] Starting workspace tool suite
+[2025-08-24 15:09:06.766 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 15:09:06.766 INFO  workspace::logging] Starting update: no_git: false, git_add: true
+[2025-08-24 15:09:06.877 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 15:09:06.878 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 15:09:06.878 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 15:09:06.878 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 15:09:06.955 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 15:09:06.955 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 15:09:06.955 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 15:09:06.955 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 15:09:07.910 INFO  ws] Version updated to: 0.59.182186
+[2025-08-24 15:09:08.439 INFO  ws] Rendered 1 templates: RELEASE.md
+[2025-08-24 15:09:08.439 INFO  ws] Template rendered: RELEASE.md
+[2025-08-24 15:09:08.467 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 15:09:08.467 INFO  workspace::entities::database] Database indexes created successfully
+[2025-08-24 15:09:08.467 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 15:09:08.467 INFO  workspace::entities::database] Database tables initialized successfully
+[2025-08-24 15:09:09.046 INFO  workspace::st8::st8_common] Updated project files: /Users/bahram/ws/prj/workspace/Cargo.toml, /Users/bahram/ws/prj/workspace/package.json
+[2025-08-24 15:09:09.046 INFO  workspace::st8::st8_common] Updated project files: /Users/bahram/ws/prj/workspace/Cargo.toml, /Users/bahram/ws/prj/workspace/package.json
+[2025-08-24 15:09:09.046 INFO  ws] Updated version file: version.txt
+[2025-08-24 15:09:09.073 INFO  ws] Added file to git: version.txt
+[2025-08-24 15:09:09.090 INFO  ws] Added file to git: RELEASE.md
